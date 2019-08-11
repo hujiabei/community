@@ -27,7 +27,8 @@ public class AuthorizeController {
 
     @GetMapping("/authCallback")
     public String authCallback(@RequestParam(name = "code")String code,
-                               @RequestParam(name = "state")String state){
+                               @RequestParam(name = "state")String state,
+                               ){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -36,7 +37,9 @@ public class AuthorizeController {
         accessTokenDTO.setState(state);
         String accessToken = gitHubProvider.getAccessToken(accessTokenDTO);
         GithubUser user = gitHubProvider.getUser(accessToken);
-        System.out.println(user.getName());
+        if(user != null){
+
+        }
         return "index";
     }
 }
